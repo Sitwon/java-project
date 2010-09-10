@@ -10,8 +10,10 @@ We are skipping it here to set it later in the properties file.
 
 @default = The default target. The name of the target to run if none are specified
 on the command-line. (Optional)
+We are using the meta-target 'all' for configurability.
 
 @basedir = The base directory for all relative paths. (Optional)
+The current directory is probably the correct choice.
 -->
 <project default="all" basedir=".">
     <!-- Load the properties file containing the project-specific configuration. -->
