@@ -18,6 +18,8 @@ We are using the meta-target 'all' for configurability.
     <!-- Load the properties file containing the project-specific configuration. -->
     <loadproperties srcFile="build.properties"/>
 
+    <property name="x-jarfile" location="${dist}/${ant.project.name}.jar"/>
+
     <!-- Initialization target. -->
     <target name="init">
         <!-- Initialize the timestamp properties. -->
@@ -76,7 +78,7 @@ We are using the meta-target 'all' for configurability.
         </pathconvert>
 
         <!-- Create the Jar file for our project in the distributable directory. -->
-        <jar jarfile="${dist}/${ant.project.name}.jar">
+        <jar jarfile="${x-jarfile}">
             <!-- Include compiled classes -->
             <fileset dir="${build}"/>
 
@@ -105,6 +107,10 @@ We are using the meta-target 'all' for configurability.
             <classpath location="${lib}"/>
             <classpath path="${libs}"/>
         </javadoc>
+    </target>
+
+    <target name="run">
+        <java jar="${x-jarfile}"/>
     </target>
 
     <!-- Meta-target. Just specifies the default target(s) when none is specified on the command-line. -->
