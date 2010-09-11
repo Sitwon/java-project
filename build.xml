@@ -76,7 +76,13 @@ We are using the meta-target 'all' for configurability.
         </pathconvert>
 
         <!-- Create the Jar file for our project in the distributable directory. -->
-        <jar jarfile="${dist}/${ant.project.name}.jar" basedir="${build}">
+        <jar jarfile="${dist}/${ant.project.name}.jar">
+            <!-- Include compiled classes -->
+            <fileset dir="${build}"/>
+
+            <!-- Include source code, but exclude temporary editor files -->
+            <fileset dir="${src}" excludes="**/.*.swp **/*~"/>
+
             <manifest>
                 <!-- Set's the Main class.
                 This is the class who's main() method will be called by default.
