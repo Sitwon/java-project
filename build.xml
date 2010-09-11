@@ -103,7 +103,8 @@ We are using the meta-target 'all' for configurability.
         <mkdir dir="${javadoc}"/>
 
         <!-- Generate the Javadoc -->
-        <javadoc sourcepath="${src}" destdir="${javadoc}">
+        <javadoc destdir="${javadoc}">
+            <fileset dir="${src}" excludes="**/.*.swp **/*~"/>
             <classpath location="${lib}"/>
             <classpath path="${libs}"/>
         </javadoc>
