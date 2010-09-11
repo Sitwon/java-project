@@ -109,8 +109,13 @@ We are using the meta-target 'all' for configurability.
         </javadoc>
     </target>
 
-    <target name="run">
-        <java jar="${x-jarfile}"/>
+    <!-- Run target. Run the finished product. -->
+    <target name="run" depends="dist">
+        <!-- Run the compiled Jar file using the arguments and directory specified in the properties. -->
+        <java jar="${x-jarfile}"
+            args="${run.args}"
+            fork="true"
+            dir="${run.dir}"/>
     </target>
 
     <!-- Meta-target. Just specifies the default target(s) when none is specified on the command-line. -->
