@@ -47,8 +47,12 @@ We are using the meta-target 'all' for configurability.
                 debug="${debug}"
                 debuglevel="${debuglevel}">
             <!-- Include these libraries in the classpath. -->
-            <classpath location="${lib}"/>
-            <classpath path="${libs}"/>
+            <classpath>
+                <pathelement path="${libs}"/>
+                <fileset dir="${lib}">
+                    <include name="**/*.jar"/>
+                </fileset>
+            </classpath>
         </javac>
     </target>
 
@@ -105,8 +109,12 @@ We are using the meta-target 'all' for configurability.
         <!-- Generate the Javadoc -->
         <javadoc destdir="${javadoc}">
             <fileset dir="${src}" excludes="**/.*.swp **/*~"/>
-            <classpath location="${lib}"/>
-            <classpath path="${libs}"/>
+            <classpath>
+                <pathelement path="${libs}"/>
+                <fileset dir="${lib}">
+                    <include name="**/*.jar"/>
+                </fileset>
+            </classpath>
         </javadoc>
     </target>
 
