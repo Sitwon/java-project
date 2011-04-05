@@ -56,6 +56,29 @@ We are using the meta-target 'all' for configurability.
         </javac>
     </target>
 
+    <!-- Test target. Make sure all the unit tests pass. -->
+    <target name="test" depends="compile">
+        <junit fork="yes" haltonfailure="yes">
+            <classpath>
+                <pathelement path="${build}"/>
+                <pathelement path="${libs}"/>
+                <fileset dir="${lib}">
+                    <include name="**/*.jar"/>
+                </fileset>
+            </classpath>
+
+            <!-- Format and report the test results to the console. -->
+            <formatter type="plain" usefile="no"/>
+
+            <!-- Consider all classes named Test* to be unit tests and run them. -->
+            <batchtest>
+                <fileset dir="${src}">
+                    <include name="**/Test*.java"/>
+                </fileset>
+            </batchtest>
+        </junit>
+    </target>
+
     <!-- Distribute target. Here we make the Jar file that will be distributed. -->
     <target name="dist" depends="compile">
         <!-- Create the distributable directory. -->
