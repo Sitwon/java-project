@@ -27,6 +27,7 @@ We are using the meta-target 'all' for configurability.
 
         <!-- Make sure the src and lib directories exist. -->
         <mkdir dir="${src}"/>
+        <mkdir dir="${test}"/>
         <mkdir dir="${lib}"/>
 
         <!-- Create the build directory. -->
@@ -56,11 +57,30 @@ We are using the meta-target 'all' for configurability.
         </javac>
     </target>
 
+    <!-- Compile the unit tests. -->
+    <target name="compile-tests" depends="init, compile">
+        <javac srcdir="${test}"
+                destdir="${build}"
+                includeantruntime="false"
+                debug="${debug}"
+                debuglevel="${debuglevel}">
+            <classpath>
+                <pathelement path="${build}"/>
+                <pathelement path="${junit.path}"/>
+                <pathelement path="${libs}"/>
+                <fileset dir="${lib}">
+                    <include name="**/*.jar"/>
+                </fileset>
+            </classpath>
+        </javac>
+    </target>
+
     <!-- Test target. Make sure all the unit tests pass. -->
-    <target name="test" depends="compile">
+    <target name="test" depends="compile, compile-tests">
         <junit fork="yes" haltonfailure="yes">
             <classpath>
                 <pathelement path="${build}"/>
+                <pathelement path="${junit.path}"/>
                 <pathelement path="${libs}"/>
                 <fileset dir="${lib}">
                     <include name="**/*.jar"/>
@@ -72,7 +92,7 @@ We are using the meta-target 'all' for configurability.
 
             <!-- Consider all classes named Test* to be unit tests and run them. -->
             <batchtest>
-                <fileset dir="${src}">
+                <fileset dir="${test}">
                     <include name="**/Test*.java"/>
                 </fileset>
             </batchtest>
