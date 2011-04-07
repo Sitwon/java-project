@@ -99,8 +99,8 @@ We are using the meta-target 'all' for configurability.
         </junit>
     </target>
 
-    <!-- Distribute target. Here we make the Jar file that will be distributed. -->
-    <target name="dist" depends="compile">
+    <!-- Make-jar target. Here we make the Jar file that will be distributed. -->
+    <target name="make-jar" depends="compile">
         <!-- Create the distributable directory. -->
         <mkdir dir="${dist}"/>
 
@@ -144,6 +144,9 @@ We are using the meta-target 'all' for configurability.
         </jar>
     </target>
 
+    <!-- Distribute target. Here we prepare for distribution to a customer. -->
+    <target name="dist" depends="clean, make-jar, javadoc" />
+
     <!-- Javadoc target. Generate the Javadoc for the project. -->
     <target name="javadoc">
         <!-- Create the directory for the project's documentation. -->
@@ -162,7 +165,7 @@ We are using the meta-target 'all' for configurability.
     </target>
 
     <!-- Run target. Run the finished product. -->
-    <target name="run" depends="dist">
+    <target name="run" depends="make-jar">
         <!-- Run the compiled Jar file using the arguments and directory specified in the properties. -->
         <java jar="${x-jarfile}"
             args="${run.args}"
@@ -171,7 +174,7 @@ We are using the meta-target 'all' for configurability.
     </target>
 
     <!-- Meta-target. Just specifies the default target(s) when none is specified on the command-line. -->
-    <target name="all" depends="dist,javadoc"/>
+    <target name="all" depends="make-jar, test"/>
 
     <!-- Clean target. Clean up all the generated files and directories. -->
     <target name="clean">
