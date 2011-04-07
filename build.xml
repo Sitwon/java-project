@@ -64,7 +64,7 @@ We are using the meta-target 'all' for configurability.
     </target>
 
     <!-- Compile the unit tests. -->
-    <target name="compile-tests" depends="init, compile">
+    <target name="compile-tests" depends="compile">
         <javac srcdir="${test}"
                 destdir="${build}"
                 includeantruntime="false"
