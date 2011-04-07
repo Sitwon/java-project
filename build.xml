@@ -34,6 +34,12 @@ We are using the meta-target 'all' for configurability.
         <mkdir dir="${build}"/>
     </target>
 
+    <!-- Meta-target. Just specifies the default target(s) when none is specified on the command-line. -->
+    <target name="all" depends="make-jar, test"/>
+
+    <!-- Distribute target. Here we prepare for distribution to a customer. -->
+    <target name="dist" depends="clean, make-jar, javadoc" />
+
     <!-- Compile target. Here we compile the .java files to .class files. -->
     <target name="compile" depends="init">
         <!-- Call javac.
@@ -144,9 +150,6 @@ We are using the meta-target 'all' for configurability.
         </jar>
     </target>
 
-    <!-- Distribute target. Here we prepare for distribution to a customer. -->
-    <target name="dist" depends="clean, make-jar, javadoc" />
-
     <!-- Javadoc target. Generate the Javadoc for the project. -->
     <target name="javadoc">
         <!-- Create the directory for the project's documentation. -->
@@ -172,9 +175,6 @@ We are using the meta-target 'all' for configurability.
             fork="true"
             dir="${run.dir}"/>
     </target>
-
-    <!-- Meta-target. Just specifies the default target(s) when none is specified on the command-line. -->
-    <target name="all" depends="make-jar, test"/>
 
     <!-- Clean target. Clean up all the generated files and directories. -->
     <target name="clean">
