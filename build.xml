@@ -82,7 +82,7 @@ We are using the meta-target 'all' for configurability.
     </target>
 
     <!-- Test target. Make sure all the unit tests pass. -->
-    <target name="test" depends="compile, compile-tests">
+    <target name="test" depends="compile, compile-tests" if="junit.path">
         <junit fork="yes" haltonfailure="yes">
             <classpath>
                 <pathelement path="${build}"/>
